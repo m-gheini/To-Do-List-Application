@@ -27,8 +27,10 @@ export default class BooksService {
     return BookEntity.find();
   }
 
-  async deleteBook(bookID): Promise<DeleteResult> {
-    return BookEntity.delete(bookID);
+  async deleteBook(bookID): Promise<String> {
+    const book= await BookEntity.findByIds(bookID);
+    await BookEntity.remove(book);
+    return 'Done!'
   }
 
   // async update(bookId, query): Promise<any> {

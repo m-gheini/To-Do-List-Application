@@ -15,8 +15,8 @@ export default class GenreController {
   getAll() {
     return this.booksService.getAllBooks();
   }
-  @Delete(':bookId')
-  deleteBook(@Param('bookId') bookId) {
+  @Delete('delete/:bookId')
+  deleteBook(@Param('bookId') bookId: Number) {
     return this.booksService.deleteBook(bookId);
   }
 //   @Put()
