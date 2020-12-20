@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Delete, Param, Put, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Delete, Param, Put, Request } from '@nestjs/common';
 import BooksService from './books.service';
 import CreateBookDto from '../user/dto/create-book.dto';
 import { query } from 'express';
@@ -19,9 +19,10 @@ export default class GenreController {
   deleteBook(@Param('bookId') bookId: Number) {
     return this.booksService.deleteBook(bookId);
   }
-//   @Put()
-//   put(@Query() id, query){
-//       return this.booksService.update(id, query);
-//   }
+  @Put('update/:bookId')
+  updateBook(@Param('bookId') bookId: Number, @Body() book: CreateBookDto){
+    // , @Body() book: CreateBookDto
+      return this.booksService.update(bookId, book);
+  }
 
 }

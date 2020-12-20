@@ -33,7 +33,28 @@ export default class BooksService {
     return 'Done!'
   }
 
-  // async update(bookId, query): Promise<any> {
-  //   return BookEntity.update(bookId, query);
-  // }
+  async update(bookID, updatedData: CreateBookDto): Promise<any> {
+    // , updatedData: CreateBookDto
+    const book = await BookEntity.findByIds(bookID);
+    const bookInfo = book.shift();
+    // return bookInfo.name;
+    // return book.id;
+    if("name" in updatedData){
+      bookInfo.name = updatedData.name
+    }
+    if("genreIDs" in updatedData){
+      bookInfo.genres=[];
+      for ( let i = 0; i < updatedData.genreIDs.length ; i++)
+      {
+        const genre = await GenreEntity.findOne(updatedData.genreIDs[i]);
+        bookInfo.genres.push(genre);
+      }
+    }
+    if("userID" in updatedData){
+      bookInfo.user = await UserEntity.findOne(updatedData.userID) ;
+    }
+    // if(updatedData.)
+    await bookInfo.save();
+    return bookInfo.name;
+  }
 }
