@@ -1,6 +1,8 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Delete, Param, Put, Query } from '@nestjs/common';
 import BooksService from './books.service';
 import CreateBookDto from '../user/dto/create-book.dto';
+import { query } from 'express';
+import { MssqlParameter } from 'typeorm';
 
 @Controller('books')
 export default class GenreController {
@@ -13,4 +15,13 @@ export default class GenreController {
   getAll() {
     return this.booksService.getAllBooks();
   }
+  @Delete(':bookId')
+  deleteBook(@Param('bookId') bookId) {
+    return this.booksService.deleteBook(bookId);
+  }
+//   @Put()
+//   put(@Query() id, query){
+//       return this.booksService.update(id, query);
+//   }
+
 }

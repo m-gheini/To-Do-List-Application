@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException } from '@nestjs/common';
 import BookEntity from '../../db/book.entity';
 import CreateBookDto from '../user/dto/create-book.dto';
 import UserEntity from '../../db/user.entity';
-import { createQueryBuilder, getConnection } from 'typeorm';
+import { Any, createQueryBuilder, DeleteResult, getConnection } from 'typeorm';
 import GenreEntity from '../../db/genre.entity';
 
 @Injectable()
@@ -26,4 +26,12 @@ export default class BooksService {
     // const user: UserEntity = await UserEntity.findOne({where: {id: 2}, relations: ['books']});
     return BookEntity.find();
   }
+
+  async deleteBook(bookID): Promise<DeleteResult> {
+    return BookEntity.delete(bookID);
+  }
+
+  // async update(bookId, query): Promise<any> {
+  //   return BookEntity.update(bookId, query);
+  // }
 }
