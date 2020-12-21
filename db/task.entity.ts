@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, ManyToOne } from 'typeorm';
+import CategoryEntity from './category.entity';
 // import BookEntity from './book.entity';
 @Entity()
 export default class TaskEntity extends BaseEntity {
@@ -8,7 +9,12 @@ export default class TaskEntity extends BaseEntity {
 
   @Column({ length: 500 })
   name: string;
-  //Category
+
+  //Category/n:1 relation with Category Entity
+  @ManyToOne(type => CategoryEntity, category => category.tasks)
+  category: CategoryEntity;
+
+
   //List of jobs(items)
   //tags
 
