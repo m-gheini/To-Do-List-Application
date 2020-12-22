@@ -37,6 +37,29 @@ export default class TodoService {
         return 'Done!'
     }
 
+    async updateTask(taskID, updatedData: CreateTaskDto): Promise<any> {
+        // , updatedData: CreateBookDto
+        const task = await TaskEntity.findByIds(taskID);
+        const taskInfo = task.shift();
+        if("name" in updatedData){
+          taskInfo.name = updatedData.name
+        }
+        if("tagIDs" in updatedData){
+          taskInfo.tags=[];
+          for ( let i = 0; i < updatedData.tagIDs.length ; i++)
+          {
+            const tag = await TagEntity.findOne(updatedData.tagIDs[i]);
+            taskInfo.tags.push(tag);
+          }
+        }
+        if("categoryID" in updatedData){
+          taskInfo.category = await CategoryEntity.findOne(updatedData.categoryID) ;
+        }
+        // if(updatedData.)
+        await taskInfo.save();
+        return taskInfo.name;
+      }
+
     async addCategory(categoryInfo: createCategoryDto): Promise<CategoryEntity> {
         const name = categoryInfo.name;
         const categoryEntity: CategoryEntity = CategoryEntity.create();
