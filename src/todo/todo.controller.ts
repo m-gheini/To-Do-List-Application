@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import CreateTaskDto from './dto/create-task.dto';
@@ -23,6 +23,14 @@ export class TodoController {
     @UseGuards(AuthGuard('jwt'))
     getAllTasks() {
         return this.todoService.getAllTasks();
+    }
+
+    //Delete Task By its ID
+    @Delete('delete/:taskId')
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard('jwt'))
+    deleteBook(@Param('taskId') taskId: Number) {
+        return this.todoService.deleteTask(taskId);
     }
 
     //Add Category

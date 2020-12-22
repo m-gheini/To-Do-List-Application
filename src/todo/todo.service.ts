@@ -8,7 +8,7 @@ import TagEntity from 'db/tag.entity';
 
 @Injectable()
 export default class TodoService {
-    //add Task
+    
     async addTask(taskInfo: CreateTaskDto): Promise<TaskEntity> {
         const {name, categoryID, tagIDs} = taskInfo;
         const taskEntity: TaskEntity = TaskEntity.create();
@@ -25,6 +25,12 @@ export default class TodoService {
 
     async getAllTasks(): Promise<TaskEntity[]> {
         return await TaskEntity.find();
+    }
+
+    async deleteTask(taskID): Promise<String> {
+        const task= await TaskEntity.findByIds(taskID);
+        await TaskEntity.remove(task);
+        return 'Done!'
     }
 
     async addCategory(categoryInfo: createCategoryDto): Promise<CategoryEntity> {
