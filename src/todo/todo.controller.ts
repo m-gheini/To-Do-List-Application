@@ -4,6 +4,7 @@ import { ApiBearerAuth } from '@nestjs/swagger';
 import CreateTaskDto from './dto/create-task.dto';
 import CreateCategoryDto from './dto/create-category.dto';
 import TodoService from './todo.service';
+import CreateTagDto from './dto/create-tag-dto';
 
 @Controller('todo')
 export class TodoController {
@@ -22,5 +23,12 @@ export class TodoController {
     @UseGuards(AuthGuard('jwt'))
     postCategory( @Body() category: CreateCategoryDto) {
         return this.todoService.addCategory(category);
+    }
+
+    @Post('post/tag')
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard('jwt'))
+    postTag( @Body() tag: CreateTagDto) {
+        return this.todoService.addTag(tag);
     }
 }

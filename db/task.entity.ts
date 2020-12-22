@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, ManyToOne, ManyToMany, JoinTable } from 'typeorm';
 import CategoryEntity from './category.entity';
-// import BookEntity from './book.entity';
+import TagEntity from './tag.entity'
+
 @Entity()
 export default class TaskEntity extends BaseEntity {
 
@@ -16,7 +17,10 @@ export default class TaskEntity extends BaseEntity {
 
 
   //List of jobs(items)
-  //tags
+  //tags/n:n relation with Tag Entity
+  @ManyToMany(type => TagEntity)
+  @JoinTable()
+  tags: TagEntity[];
 
   // 1:n relation with bookEntity 
 //   @OneToMany( type => BookEntity , book => book.user)
