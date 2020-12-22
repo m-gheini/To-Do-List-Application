@@ -7,7 +7,7 @@ import {ApiBearerAuth} from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport'; 
 
 @Controller('books')
-export default class GenreController {
+export default class BooksController {
   constructor(private readonly booksService: BooksService) {}
   @Post('post')
   @ApiBearerAuth()
