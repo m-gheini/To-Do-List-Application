@@ -23,7 +23,7 @@ export default class GenreController {
   }
   @Delete('delete/:bookId')
   @ApiBearerAuth()
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   deleteBook(@Param('bookId') bookId: Number) {
     return this.booksService.deleteBook(bookId);
   }
