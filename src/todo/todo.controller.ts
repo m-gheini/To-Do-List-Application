@@ -5,6 +5,7 @@ import CreateTaskDto from './dto/create-task.dto';
 import CreateCategoryDto from './dto/create-category.dto';
 import TodoService from './todo.service';
 import CreateTagDto from './dto/create-tag-dto';
+import CreateItemDto from './dto/create-item.dto';
 
 @Controller('todo')
 export class TodoController {
@@ -62,5 +63,13 @@ export class TodoController {
     @UseGuards(AuthGuard('jwt'))
     getAllTags() {
         return this.todoService.getAllTags();
+    }
+
+    //Add Item
+    @Post('post/item')
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard('jwt'))
+    postItem( @Body() item: CreateItemDto) {
+        return this.todoService.addItem(item);
     }
 }
