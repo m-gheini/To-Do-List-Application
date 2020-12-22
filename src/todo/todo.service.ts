@@ -23,6 +23,10 @@ export default class TodoService {
         return taskEntity;
     }
 
+    async getAllTasks(): Promise<TaskEntity[]> {
+        return await TaskEntity.find();
+    }
+
     async addCategory(categoryInfo: createCategoryDto): Promise<CategoryEntity> {
         const name = categoryInfo.name;
         const categoryEntity: CategoryEntity = CategoryEntity.create();
@@ -31,11 +35,19 @@ export default class TodoService {
         return categoryEntity;
     }
 
+    async getAllCategories(): Promise<CategoryEntity[]> {
+        return await CategoryEntity.find();
+    }
+
     async addTag(tagInfo: createTagDto): Promise<TagEntity> {
         const name = tagInfo.name;
         const tagEntity: TagEntity = TagEntity.create();
         tagEntity.name = name;
         await TagEntity.save(tagEntity);
         return tagEntity;
+    }
+
+    async getAllTags(): Promise<TagEntity[]> {
+        return await TagEntity.find();
     }
 }
