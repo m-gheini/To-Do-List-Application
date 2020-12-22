@@ -69,4 +69,14 @@ export default class TodoService {
         await ItemEntity.save(itemEntity);
         return itemEntity;
     }
+
+    async getAllItems(): Promise<ItemEntity[]> {
+        return await ItemEntity.find();
+    }
+
+    async deleteItem(itemID): Promise<String> {
+        const item= await ItemEntity.findByIds(itemID);
+        await ItemEntity.remove(item);
+        return 'Done!'
+    }
 }

@@ -30,7 +30,7 @@ export class TodoController {
     @Delete('delete/:taskId')
     @ApiBearerAuth()
     @UseGuards(AuthGuard('jwt'))
-    deleteBook(@Param('taskId') taskId: Number) {
+    deleteTask(@Param('taskId') taskId: Number) {
         return this.todoService.deleteTask(taskId);
     }
 
@@ -71,5 +71,21 @@ export class TodoController {
     @UseGuards(AuthGuard('jwt'))
     postItem( @Body() item: CreateItemDto) {
         return this.todoService.addItem(item);
+    }
+
+    //Get All Items
+    @Get('/items')
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard('jwt'))
+    getAllItems() {
+        return this.todoService.getAllItems();
+    }
+
+    //Delete Item By its ID
+    @Delete('delete/:itemId')
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard('jwt'))
+    deleteItem(@Param('itemId') itemId: Number) {
+        return this.todoService.deleteItem(itemId);
     }
 }

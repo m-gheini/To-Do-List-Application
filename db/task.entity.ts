@@ -18,7 +18,7 @@ export default class TaskEntity extends BaseEntity {
 
 
   //items/1:n relation with Item Entity
-  @OneToMany( type => ItemEntity , Item => Item.task)
+  @OneToMany( type => ItemEntity , Item => Item.task, {onDelete : 'CASCADE'})
   items : ItemEntity[];
 
   //tags/n:n relation with Tag Entity

@@ -11,6 +11,6 @@ export default class ItemEntity extends BaseEntity {
   context: string;
 
   //tasks/n:1 relation with Task Entity
-  @ManyToOne(type => TaskEntity, task => task.items)
+  @ManyToOne(type => TaskEntity, task => task.items, {onDelete : 'CASCADE'})
   task: TaskEntity;
 }
